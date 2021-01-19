@@ -1,0 +1,12 @@
+version: '2.1'
+services:
+  ds-recipe-database:
+    image: postgres:12
+    container_name: ds-recipe-database
+    hostname: ds-recipe-database
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test
+    ports:
+      - "5432:5432"
