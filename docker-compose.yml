@@ -1,5 +1,21 @@
 version: '2.1'
 services:
+  ds-recipe:
+    build:
+      context: .
+    container_name: ds-recipe
+    hostname: ds-recipe
+    volumes:
+      - ${USERPROFILE}/.m2:/root/.m2
+      - ./:/workspace
+    ports:
+      - "8081:8080"
+      - "5006:5005"
+    depends_on:
+      ds-recipe-database:
+        condition: service_healthy
+
+
   ds-recipe-database:
     image: postgres:12
     container_name: ds-recipe-database
@@ -10,3 +26,8 @@ services:
       - POSTGRES_DB=test
     ports:
       - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "psql -U test -d test -t 15 -c 'SELECT 1'" ]
+      interval: 5s
+      timeout: 15s
+      retries: 10

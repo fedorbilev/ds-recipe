@@ -40,7 +40,7 @@ CREATE TABLE ds_recipe.t_recipe_ingredient
     PRIMARY KEY (id),
     FOREIGN KEY (recipe_id) REFERENCES ds_recipe.t_recipe,
     FOREIGN KEY (ingredient_id) REFERENCES ds_recipe.t_ingredient,
-    CHECK (measurement_type IN ('GRAM', 'MILLILITER'))
+    CHECK (measurement_type IN ('PIECE', 'GRAM', 'MILLILITER'))
 );
 
 CREATE INDEX t_recipe_ingredient_recipe_id_index
